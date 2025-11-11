@@ -11,11 +11,22 @@ const OrderContainer = ({ dataPromise }) => {
 
   const [cooked, setCooked] = useState([]);
 
+  const [order, setOrder] = useState(theData);
+
   const handleClick = (data) => {
     const isExist = cooking.find((item) => item.id === data.id);
 
     if (isExist) {
-      toast.error("Already in cooking list");
+      toast.error("Already in cooking list", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
     const newCooking = [...cooking, data];
@@ -29,17 +40,16 @@ const OrderContainer = ({ dataPromise }) => {
 
     const remaining = cooking.filter((item) => item.id !== data.id);
     setCooking(remaining);
+
+    const remainingOrders = order.filter((item) => item.id !== data.id);
+    setOrder(remainingOrders);
   };
   return (
     <div>
-      <CountCard
-        cooked={cooked}
-        cooking={cooking}
-        theData={theData}
-      ></CountCard>
+      <CountCard cooked={cooked} cooking={cooking} order={order}></CountCard>
       <div className="w-11/12 mx-auto flex flex-col lg:flex-row">
         <div className="grid w-[70%]  card  p-5 gap-5">
-          {theData.map((data) => (
+          {order.map((data) => (
             <OrderCard
               handleClick={handleClick}
               key={data.id}
@@ -48,8 +58,8 @@ const OrderContainer = ({ dataPromise }) => {
           ))}
         </div>
         <div className="w-[30%] flex flex-col">
-          <div>
-            <h1 className="text-center">Cooking</h1>
+          <div className="bg-gray-100 p-5 rounded-lg space-y-3">
+            <h1 className="text-center text-3xl font-bold">Cooking</h1>
             {cooking.map((item, index) => (
               <Cooking
                 key={index}
@@ -58,8 +68,8 @@ const OrderContainer = ({ dataPromise }) => {
               ></Cooking>
             ))}
           </div>
-          <div>
-            <h1 className="text-center py-10">Ready</h1>
+          <div className="bg-gray-100  rounded-lg p-5 mt-5 space-y-3 ">
+            <h1 className="text-center py-10 text-3xl font-bold">Ready</h1>
             {cooked.map((item, index) => (
               <Cooked key={index} item={item}></Cooked>
             ))}

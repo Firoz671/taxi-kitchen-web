@@ -1,6 +1,6 @@
 import React from "react";
 import { CookingPotIcon, ScrollText, TicketCheck } from "lucide-react";
-const CountCard = ({ theData, cooking, cooked }) => {
+const CountCard = ({ order, cooking, cooked }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-11/12 mx-auto py-10">
       {/* Card1 */}
@@ -9,7 +9,7 @@ const CountCard = ({ theData, cooking, cooked }) => {
           <ScrollText className="animate-pulse" color="#fcb700" size={100} />
           <div className="text-xl text-center">
             Current Orders
-            <h2 className="text-6xl font-bold">{theData.length}</h2>
+            <h2 className="text-6xl font-bold">{order.length}</h2>
           </div>
         </div>
       </div>
