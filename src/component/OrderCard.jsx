@@ -1,7 +1,7 @@
 import { UtensilsCrossed } from "lucide-react";
 import React from "react";
 
-const OrderCard = ({ data }) => {
+const OrderCard = ({ data, handleClick }) => {
   const {
     id,
     order_no,
@@ -21,7 +21,10 @@ const OrderCard = ({ data }) => {
       <span>{waiterId}</span>
       <span>{quantity}</span> */}
 
-      <div className="card shadow-sm w-full bg-base-100 h-full p-3">
+      <div
+        onClick={() => handleClick(data)}
+        className="card shadow-sm w-full bg-base-100 h-full p-3"
+      >
         <span className="badge badge-warning">{order_no}</span>
         <span className="flex">
           <UtensilsCrossed />
